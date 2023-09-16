@@ -1,21 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NativeBaseProvider, StatusBar } from "native-base"
+import React, { useState, useEffect } from "react"
+
+import { View, Text } from "react-native"
+import Loading from "./src/components/Loading"
+
+import Home from "./src/pages/Home"
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [loading, setLoading] = useState(false)
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(true)
+    }, 2000)
+    console.log(loading)
+  }, [loading])
+
+  if (!loading) {
+    return <Loading />
+  }
+  return (
+    <NativeBaseProvider>
+      <StatusBar barStyle={"light-content"} translucent />
+      <Home />
+    </NativeBaseProvider>
+  )
+}
