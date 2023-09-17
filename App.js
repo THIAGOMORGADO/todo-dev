@@ -1,10 +1,10 @@
 import { NativeBaseProvider, StatusBar } from "native-base"
 import React, { useState, useEffect } from "react"
 
-import { View, Text } from "react-native"
 import Loading from "./src/components/Loading"
+import { NavigationContainer } from "@react-navigation/native"
 
-import Home from "./src/pages/Home"
+import Routes from "./src/routes"
 
 export default function App() {
   const [loading, setLoading] = useState(false)
@@ -13,7 +13,7 @@ export default function App() {
     setTimeout(() => {
       setLoading(true)
     }, 2000)
-    console.log(loading)
+   
   }, [loading])
 
   if (!loading) {
@@ -22,7 +22,9 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <StatusBar barStyle={"light-content"} translucent />
-      <Home />
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
     </NativeBaseProvider>
   )
 }
